@@ -30,4 +30,12 @@ class DataAugmentationForMAE(object):
         #std = np.asarray(std_10x)
 
         self.transform = transforms.Compose([
-    
+            #transforms.RandomResizedCrop(args.input_size),
+            transforms.ToTensor(),
+            transforms.Normalize(
+                mean=torch.tensor(mean),
+                std=torch.tensor(std))
+        ])
+
+        self.masked_position_generator = RandomMaskingGenerator(
+            args.window_siz
