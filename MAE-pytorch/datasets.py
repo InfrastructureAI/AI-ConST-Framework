@@ -24,4 +24,10 @@ from dataset_folder import ImageFolder
 class DataAugmentationForMAE(object):
     def __init__(self, args):
         imagenet_default_mean_and_std = args.imagenet_default_mean_and_std
-        mean = IMAGENET_INC
+        mean = IMAGENET_INCEPTION_MEAN if not imagenet_default_mean_and_std else IMAGENET_DEFAULT_MEAN
+        std = IMAGENET_INCEPTION_STD if not imagenet_default_mean_and_std else IMAGENET_DEFAULT_STD
+        #mean = np.asarray(mean_10x)
+        #std = np.asarray(std_10x)
+
+        self.transform = transforms.Compose([
+    
