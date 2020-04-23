@@ -38,4 +38,13 @@ class DataAugmentationForMAE(object):
         ])
 
         self.masked_position_generator = RandomMaskingGenerator(
-            args.window_siz
+            args.window_size, args.mask_ratio
+        )
+
+    def __call__(self, image):
+        return self.transform(image), self.masked_position_generator()
+
+    def __repr__(self):
+        repr = "(DataAugmentationForBEiT,\n"
+        repr += "  transform = %s,\n" % str(self.transform)
+        repr += " 
