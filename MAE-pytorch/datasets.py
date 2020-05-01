@@ -47,4 +47,14 @@ class DataAugmentationForMAE(object):
     def __repr__(self):
         repr = "(DataAugmentationForBEiT,\n"
         repr += "  transform = %s,\n" % str(self.transform)
-        repr += " 
+        repr += "  Masked position generator = %s,\n" % str(self.masked_position_generator)
+        repr += ")"
+        return repr
+
+
+def build_pretraining_dataset(args):
+    transform = DataAugmentationForMAE(args)
+    print("Data Aug = %s" % str(transform))
+    return ImageFolder(args.data_path, transform=transform)
+
+
