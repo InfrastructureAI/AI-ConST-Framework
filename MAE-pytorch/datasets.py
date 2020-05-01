@@ -58,3 +58,13 @@ def build_pretraining_dataset(args):
     return ImageFolder(args.data_path, transform=transform)
 
 
+def build_dataset(is_train, args):
+    transform = build_transform(is_train, args)
+
+    print("Transform = ")
+    if isinstance(transform, tuple):
+        for trans in transform:
+            print(" - - - - - - - - - - ")
+            for t in trans.transforms:
+                print(t)
+    els
