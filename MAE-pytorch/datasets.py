@@ -67,4 +67,13 @@ def build_dataset(is_train, args):
             print(" - - - - - - - - - - ")
             for t in trans.transforms:
                 print(t)
-    els
+    else:
+        for t in transform.transforms:
+            print(t)
+    print("---------------------------")
+
+    if args.data_set == 'CIFAR':
+        dataset = datasets.CIFAR100(args.data_path, train=is_train, transform=transform)
+        nb_classes = 100
+    elif args.data_set == 'IMNET':
+        roo
