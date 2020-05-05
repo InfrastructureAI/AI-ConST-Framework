@@ -89,4 +89,11 @@ def build_dataset(is_train, args):
     assert nb_classes == args.nb_classes
     print("Number of the class = %d" % args.nb_classes)
 
-    return dataset, nb_class
+    return dataset, nb_classes
+
+
+def build_transform(is_train, args):
+    resize_im = args.input_size > 32
+    imagenet_default_mean_and_std = args.imagenet_default_mean_and_std
+    mean = IMAGENET_INCEPTION_MEAN if not imagenet_default_mean_and_std else IMAGENET_DEFAULT_MEAN
+    std = IMAGENET_INCEPTION_STD if not imagenet_default
