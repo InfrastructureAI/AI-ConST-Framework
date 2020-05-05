@@ -81,4 +81,12 @@ def build_dataset(is_train, args):
         nb_classes = 1000
     elif args.data_set == "image_folder":
         root = args.data_path if is_train else args.eval_data_path
-        dataset
+        dataset = ImageFolder(root, transform=transform)
+        nb_classes = args.nb_classes
+        assert len(dataset.class_to_idx) == nb_classes
+    else:
+        raise NotImplementedError()
+    assert nb_classes == args.nb_classes
+    print("Number of the class = %d" % args.nb_classes)
+
+    return dataset, nb_class
