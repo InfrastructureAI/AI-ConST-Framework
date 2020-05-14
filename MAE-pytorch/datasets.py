@@ -114,4 +114,15 @@ def build_transform(is_train, args):
         )
         if not resize_im:
             # replace RandomResizedCropAndInterpolation with
-           
+            # RandomCrop
+            transform.transforms[0] = transforms.RandomCrop(
+                args.input_size, padding=4)
+        return transform
+
+    t = []
+    if resize_im:
+        if args.crop_pct is None:
+            if args.input_size < 384:
+                args.crop_pct = 224 / 256
+            else:
+                args.crop_pct =
