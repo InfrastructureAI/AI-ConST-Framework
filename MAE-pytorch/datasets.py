@@ -133,4 +133,5 @@ def build_transform(is_train, args):
         t.append(transforms.CenterCrop(args.input_size))
 
     t.append(transforms.ToTensor())
-    t.append(transfo
+    t.append(transforms.Normalize(mean, std))
+    return transforms.Compose(t)
