@@ -130,3 +130,54 @@ def create_optimizer(args, model, get_num_layer=None, get_layer_scale=None, filt
         opt_args.pop('eps', None)
         optimizer = optim.SGD(parameters, momentum=args.momentum, nesterov=False, **opt_args)
     elif opt_lower == 'adam':
+        optimizer = optim.Adam(parameters, **opt_args)
+    elif opt_lower == 'adamw':
+        optimizer = optim.AdamW(parameters, **opt_args)
+    elif opt_lower == 'nadam':
+        optimizer = Nadam(parameters, **opt_args)
+    elif opt_lower == 'radam':
+        optimizer = RAdam(parameters, **opt_args)
+    elif opt_lower == 'adamp':
+        optimizer = AdamP(parameters, wd_ratio=0.01, nesterov=True, **opt_args)
+    elif opt_lower == 'sgdp':
+        optimizer = SGDP(parameters, momentum=args.momentum, nesterov=True, **opt_args)
+    elif opt_lower == 'adadelta':
+        optimizer = optim.Adadelta(parameters, **opt_args)
+    elif opt_lower == 'adafactor':
+        if not args.lr:
+            opt_args['lr'] = None
+        optimizer = Adafactor(parameters, **opt_args)
+    elif opt_lower == 'adahessian':
+        optimizer = Adahessian(parameters, **opt_args)
+    elif opt_lower == 'rmsprop':
+        optimizer = optim.RMSprop(parameters, alpha=0.9, momentum=args.momentum, **opt_args)
+    elif opt_lower == 'rmsproptf':
+        optimizer = RMSpropTF(parameters, alpha=0.9, momentum=args.momentum, **opt_args)
+    elif opt_lower == 'novograd':
+        optimizer = NovoGrad(parameters, **opt_args)
+    elif opt_lower == 'nvnovograd':
+        optimizer = NvNovoGrad(parameters, **opt_args)
+    elif opt_lower == 'fusedsgd':
+        opt_args.pop('eps', None)
+        optimizer = FusedSGD(parameters, momentum=args.momentum, nesterov=True, **opt_args)
+    elif opt_lower == 'fusedmomentum':
+        opt_args.pop('eps', None)
+        optimizer = FusedSGD(parameters, momentum=args.momentum, nesterov=False, **opt_args)
+    elif opt_lower == 'fusedadam':
+        optimizer = FusedAdam(parameters, adam_w_mode=False, **opt_args)
+    elif opt_lower == 'fusedadamw':
+        optimizer = FusedAdam(parameters, adam_w_mode=True, **opt_args)
+    elif opt_lower == 'fusedlamb':
+        optimizer = FusedLAMB(parameters, **opt_args)
+    elif opt_lower == 'fusednovograd':
+        opt_args.setdefault('betas', (0.95, 0.98))
+        optimizer = FusedNovoGrad(parameters, **opt_args)
+    else:
+        assert False and "Invalid optimizer"
+        raise ValueError
+
+    if len(opt_split) > 1:
+        if opt_split[0] == 'lookahead':
+            optimizer = Lookahead(optimizer)
+
+    return optimizer
