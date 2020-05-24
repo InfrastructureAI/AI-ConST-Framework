@@ -29,4 +29,8 @@ def get_args():
                         help='device to use for training / testing')
     parser.add_argument('--imagenet_default_mean_and_std', default=False, action='store_false')
     parser.add_argument('--mask_ratio', default=0.75, type=float,
-                        help='
+                        help='ratio of the visual tokens/patches need be masked')
+    # Model parameters
+    parser.add_argument('--model', default='pretrain_mae_base_patch16_224', type=str, metavar='MODEL',
+                        help='Name of model to vis')
+    parser.add_argument('--drop_path', type=float, default=0.0,
