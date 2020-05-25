@@ -33,4 +33,16 @@ def get_args():
     # Model parameters
     parser.add_argument('--model', default='pretrain_mae_base_patch16_224', type=str, metavar='MODEL',
                         help='Name of model to vis')
-    parser.add_argument('--drop_path', type=float, default=0.0,
+    parser.add_argument('--drop_path', type=float, default=0.0, metavar='PCT',
+                        help='Drop path rate (default: 0.1)')
+    
+    return parser.parse_args()
+
+
+def get_model(args):
+    print(f"Creating model: {args.model}")
+    model = create_model(
+        args.model,
+        pretrained=False,
+        drop_path_rate=args.drop_path,
+        drop_block_
