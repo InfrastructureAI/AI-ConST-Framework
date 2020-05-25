@@ -45,4 +45,19 @@ def get_model(args):
         args.model,
         pretrained=False,
         drop_path_rate=args.drop_path,
-        drop_block_
+        drop_block_rate=None,
+    )
+
+    return model
+
+
+def main(args):
+    print(args)
+
+    device = torch.device(args.device)
+    cudnn.benchmark = True
+
+    model = get_model(args)
+    patch_size = model.encoder.patch_embed.patch_size
+    print("Patch size = %s" % str(patch_size))
+    args.window_size 
