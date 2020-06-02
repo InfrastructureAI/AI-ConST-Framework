@@ -60,4 +60,13 @@ def main(args):
     model = get_model(args)
     patch_size = model.encoder.patch_embed.patch_size
     print("Patch size = %s" % str(patch_size))
-    args.window_size 
+    args.window_size = (args.input_size // patch_size[0], args.input_size // patch_size[1])
+    args.patch_size = patch_size
+
+    model.to(device)
+    checkpoint = torch.load(args.model_path, map_location='cpu')
+    model.load_state_dict(checkpoint['model'])
+    model.eval()
+
+    features_all = []
+    imgs = np.load(args.img
