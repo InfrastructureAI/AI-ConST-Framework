@@ -69,4 +69,12 @@ def main(args):
     model.eval()
 
     features_all = []
-    imgs = np.load(args.img
+    imgs = np.load(args.img_path)
+    for i, img in enumerate(imgs):
+        print('extracting img ', i)
+        if img.shape[0] != args.input_size:
+            img = cv2.resize(img, (args.input_size, args.input_size))
+        img = Image.fromarray(img.astype(np.uint8))
+        img.convert('RGB')
+
+    
