@@ -77,4 +77,11 @@ def main(args):
         img = Image.fromarray(img.astype(np.uint8))
         img.convert('RGB')
 
+        transforms = DataAugmentationForMAE(args)
+        img, bool_masked_pos = transforms(img)
+        bool_masked_pos = torch.from_numpy(bool_masked_pos)
     
+        with torch.no_grad():
+            img = img[None, :]
+            bool_masked_pos = bool_masked_pos[None, :]
+            im
