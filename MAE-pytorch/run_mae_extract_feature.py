@@ -89,4 +89,11 @@ def main(args):
             
             features = model.encoder.forward(img, bool_masked_pos)
             features_pool = features.mean(dim = 1)
-            features_all.app
+            features_all.append(features_pool.detach().cpu().numpy())
+    
+    np.save(args.save_path, np.asarray(features_all).squeeze())
+
+
+if __name__ == '__main__':
+    opts = get_args()
+    main(opts)
