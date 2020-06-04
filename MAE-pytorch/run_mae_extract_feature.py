@@ -84,4 +84,9 @@ def main(args):
         with torch.no_grad():
             img = img[None, :]
             bool_masked_pos = bool_masked_pos[None, :]
-            im
+            img = img.to(device, non_blocking=True)
+            bool_masked_pos = bool_masked_pos.to(device, non_blocking=True).flatten(1).to(torch.bool)
+            
+            features = model.encoder.forward(img, bool_masked_pos)
+            features_pool = features.mean(dim = 1)
+            features_all.app
