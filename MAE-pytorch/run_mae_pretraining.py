@@ -44,4 +44,10 @@ def get_args():
                         help='images input size for backbone')
 
     parser.add_argument('--drop_path', type=float, default=0.0, metavar='PCT',
+                        help='Drop path rate (default: 0.1)')
                         
+    parser.add_argument('--normlize_target', default=True, type=bool,
+                        help='normalized the target patch pixels')
+
+    # Optimizer parameters
+    parser.add_argument('--opt', default='ad
