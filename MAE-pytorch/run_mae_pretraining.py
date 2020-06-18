@@ -37,4 +37,11 @@ def get_args():
     parser.add_argument('--model', default='pretrain_mae_base_patch16_224', type=str, metavar='MODEL',
                         help='Name of model to train')
 
-    parser.add_argument('--mask_ratio', default=0.75, ty
+    parser.add_argument('--mask_ratio', default=0.75, type=float,
+                        help='ratio of the visual tokens/patches need be masked')
+
+    parser.add_argument('--input_size', default=224, type=int,
+                        help='images input size for backbone')
+
+    parser.add_argument('--drop_path', type=float, default=0.0, metavar='PCT',
+                        
