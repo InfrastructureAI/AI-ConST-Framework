@@ -61,4 +61,9 @@ def get_args():
     parser.add_argument('--momentum', type=float, default=0.9, metavar='M',
                         help='SGD momentum (default: 0.9)')
     parser.add_argument('--weight_decay', type=float, default=0.05,
-                        help='weight decay (defaul
+                        help='weight decay (default: 0.05)')
+    parser.add_argument('--weight_decay_end', type=float, default=None, help="""Final value of the
+        weight decay. We use a cosine schedule for WD. 
+        (Set the same value with args.weight_decay to keep weight decay no change)""")
+
+    parser.add_argument('--lr', type=float
