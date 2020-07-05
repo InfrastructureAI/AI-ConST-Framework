@@ -66,4 +66,8 @@ def get_args():
         weight decay. We use a cosine schedule for WD. 
         (Set the same value with args.weight_decay to keep weight decay no change)""")
 
-    parser.add_argument('--lr', type=float
+    parser.add_argument('--lr', type=float, default=1.5e-4, metavar='LR',
+                        help='learning rate (default: 1.5e-4)')
+    parser.add_argument('--warmup_lr', type=float, default=1e-6, metavar='LR',
+                        help='warmup learning rate (default: 1e-6)')
+    parser.add_argument('--min_lr', type=float, def
