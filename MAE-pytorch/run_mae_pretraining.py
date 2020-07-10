@@ -75,4 +75,10 @@ def get_args():
 
     parser.add_argument('--warmup_epochs', type=int, default=40, metavar='N',
                         help='epochs to warmup LR, if scheduler supports')
-    parser.add_argument('--warmup
+    parser.add_argument('--warmup_steps', type=int, default=-1, metavar='N',
+                        help='epochs to warmup LR, if scheduler supports')
+
+    # Augmentation parameters
+    parser.add_argument('--color_jitter', type=float, default=0.0, metavar='PCT',
+                        help='Color jitter factor (default: 0.4)')
+ 
