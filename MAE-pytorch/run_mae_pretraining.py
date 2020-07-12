@@ -81,4 +81,8 @@ def get_args():
     # Augmentation parameters
     parser.add_argument('--color_jitter', type=float, default=0.0, metavar='PCT',
                         help='Color jitter factor (default: 0.4)')
- 
+    parser.add_argument('--train_interpolation', type=str, default='bicubic',
+                        help='Training interpolation (random, bilinear, bicubic default: "bicubic")')
+
+    # Dataset parameters
+    parser.add_argument('--data_path', default='/datasets01/imagenet_full_size/061417/tr
