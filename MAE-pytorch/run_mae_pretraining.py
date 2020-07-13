@@ -96,4 +96,9 @@ def get_args():
     parser.add_argument('--device', default='cuda',
                         help='device to use for training / testing')
     parser.add_argument('--seed', default=0, type=int)
-  
+    parser.add_argument('--resume', default='', help='resume from checkpoint')
+    parser.add_argument('--auto_resume', action='store_true')
+    parser.add_argument('--no_auto_resume', action='store_false', dest='auto_resume')
+    parser.set_defaults(auto_resume=True)
+
+    parser.add_argument('--start_epoc
