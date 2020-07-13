@@ -90,4 +90,10 @@ def get_args():
     parser.add_argument('--imagenet_default_mean_and_std', default=True, action='store_true')
 
     parser.add_argument('--output_dir', default='',
-                        help='path where to save, empty for n
+                        help='path where to save, empty for no saving')
+    parser.add_argument('--log_dir', default=None,
+                        help='path where to tensorboard log')
+    parser.add_argument('--device', default='cuda',
+                        help='device to use for training / testing')
+    parser.add_argument('--seed', default=0, type=int)
+  
