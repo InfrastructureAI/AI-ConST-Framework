@@ -85,4 +85,9 @@ def get_args():
                         help='Training interpolation (random, bilinear, bicubic default: "bicubic")')
 
     # Dataset parameters
-    parser.add_argument('--data_path', default='/datasets01/imagenet_full_size/061417/tr
+    parser.add_argument('--data_path', default='/datasets01/imagenet_full_size/061417/train', type=str,
+                        help='dataset path')
+    parser.add_argument('--imagenet_default_mean_and_std', default=True, action='store_true')
+
+    parser.add_argument('--output_dir', default='',
+                        help='path where to save, empty for n
