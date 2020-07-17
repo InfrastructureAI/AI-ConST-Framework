@@ -115,4 +115,21 @@ def get_args():
                         help='number of distributed processes')
     parser.add_argument('--local_rank', default=-1, type=int)
     parser.add_argument('--dist_on_itp', action='store_true')
-    parser.add_argument('--dist_url', default='env://', help='url used to set up distributed trainin
+    parser.add_argument('--dist_url', default='env://', help='url used to set up distributed training')
+
+    return parser.parse_args()
+
+
+def get_model(args):
+    print(f"Creating model: {args.model}")
+    model = create_model(
+        args.model,
+        pretrained=False,
+        drop_path_rate=args.drop_path,
+        drop_block_rate=None,
+    )
+
+    return model
+
+
+def mai
