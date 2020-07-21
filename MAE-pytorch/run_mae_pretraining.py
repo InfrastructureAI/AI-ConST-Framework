@@ -147,4 +147,11 @@ def main(args):
 
     cudnn.benchmark = True
 
-    model = ge
+    model = get_model(args)
+    patch_size = model.encoder.patch_embed.patch_size
+    print("Patch size = %s" % str(patch_size))
+    args.window_size = (args.input_size // patch_size[0], args.input_size // patch_size[1])
+    args.patch_size = patch_size
+
+    # get dataset
+    dataset_train = build_pretraining_datas
