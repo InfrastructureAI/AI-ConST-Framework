@@ -132,4 +132,19 @@ def get_model(args):
     return model
 
 
-def mai
+def main(args):
+    utils.init_distributed_mode(args)
+
+    print(args)
+
+    device = torch.device(args.device)
+
+    # fix the seed for reproducibility
+    seed = args.seed + utils.get_rank()
+    torch.manual_seed(seed)
+    np.random.seed(seed)
+    # random.seed(seed)
+
+    cudnn.benchmark = True
+
+    model = ge
