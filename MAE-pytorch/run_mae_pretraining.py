@@ -154,4 +154,12 @@ def main(args):
     args.patch_size = patch_size
 
     # get dataset
-    dataset_train = build_pretraining_datas
+    dataset_train = build_pretraining_dataset(args)
+
+    if True:  # args.distributed:
+        num_tasks = utils.get_world_size()
+        global_rank = utils.get_rank()
+        sampler_rank = global_rank
+        num_training_steps_per_epoch = len(dataset_train) // args.batch_size // num_tasks
+
+        sampler_train = torch.utils.data.DistributedS
