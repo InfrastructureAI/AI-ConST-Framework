@@ -162,4 +162,12 @@ def main(args):
         sampler_rank = global_rank
         num_training_steps_per_epoch = len(dataset_train) // args.batch_size // num_tasks
 
-        sampler_train = torch.utils.data.DistributedS
+        sampler_train = torch.utils.data.DistributedSampler(
+            dataset_train, num_replicas=num_tasks, rank=sampler_rank, shuffle=True
+        )
+        print("Sampler_train = %s" % str(sampler_train))
+    else:
+        sampler_train = torch.utils.data.RandomSampler(dataset_train)
+
+    if global_rank == 0 and args.log_dir is not None:
+        
