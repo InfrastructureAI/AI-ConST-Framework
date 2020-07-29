@@ -188,4 +188,12 @@ def main(args):
     model_without_ddp = model
     n_parameters = sum(p.numel() for p in model.parameters() if p.requires_grad)
 
-    print("Model = %s" % str(model_wi
+    print("Model = %s" % str(model_without_ddp))
+    print('number of params: {} M'.format(n_parameters / 1e6))
+
+    total_batch_size = args.batch_size * utils.get_world_size()
+    args.lr = args.lr * total_batch_size / 256
+
+    print("LR = %.8f" % args.lr)
+    print("Batch size = %d" % total_batch_size)
+    print("Number of training steps = %d" 
