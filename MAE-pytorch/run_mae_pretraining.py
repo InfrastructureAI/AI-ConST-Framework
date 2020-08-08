@@ -196,4 +196,9 @@ def main(args):
 
     print("LR = %.8f" % args.lr)
     print("Batch size = %d" % total_batch_size)
-    print("Number of training steps = %d" 
+    print("Number of training steps = %d" % num_training_steps_per_epoch)
+    print("Number of training examples per epoch = %d" % (total_batch_size * num_training_steps_per_epoch))
+
+    if args.distributed:
+        model = torch.nn.parallel.DistributedDataParallel(model, device_ids=[args.gpu], find_unused_parameters=True)
+        model_without_ddp = mo
