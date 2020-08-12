@@ -201,4 +201,13 @@ def main(args):
 
     if args.distributed:
         model = torch.nn.parallel.DistributedDataParallel(model, device_ids=[args.gpu], find_unused_parameters=True)
-        model_without_ddp = mo
+        model_without_ddp = model.module
+
+    optimizer = create_optimizer(
+        args, model_without_ddp)
+    loss_scaler = NativeScaler()
+
+    print("Use step level LR & WD scheduler!")
+    lr_schedule_values = utils.cosine_scheduler(
+        args.lr, args.min_lr, args.epochs, num_training_steps_per_epoch,
+        warmup_epochs=args.warmup_epochs,
