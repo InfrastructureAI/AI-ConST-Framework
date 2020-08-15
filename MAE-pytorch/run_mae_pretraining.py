@@ -229,4 +229,10 @@ def main(args):
         if log_writer is not None:
             log_writer.set_step(epoch * num_training_steps_per_epoch)
         train_stats = train_one_epoch(
-            model, d
+            model, data_loader_train,
+            optimizer, device, epoch, loss_scaler,
+            args.clip_grad, log_writer=log_writer,
+            start_steps=epoch * num_training_steps_per_epoch,
+            lr_schedule_values=lr_schedule_values,
+            wd_schedule_values=wd_schedule_values,
+            patch_
