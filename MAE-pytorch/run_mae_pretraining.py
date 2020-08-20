@@ -235,4 +235,10 @@ def main(args):
             start_steps=epoch * num_training_steps_per_epoch,
             lr_schedule_values=lr_schedule_values,
             wd_schedule_values=wd_schedule_values,
-            patch_
+            patch_size=patch_size[0],
+            normlize_target=args.normlize_target,
+        )
+        if args.output_dir:
+            if (epoch + 1) % args.save_ckpt_freq == 0 or epoch + 1 == args.epochs:
+                utils.save_model(
+                    args=args, model=model, model_without_ddp=model_with
