@@ -255,4 +255,11 @@ def main(args):
 
     total_time = time.time() - start_time
     total_time_str = str(datetime.timedelta(seconds=int(total_time)))
-    print('Training
+    print('Training time {}'.format(total_time_str))
+
+
+if __name__ == '__main__':
+    opts = get_args()
+    if opts.output_dir:
+        Path(opts.output_dir).mkdir(parents=True, exist_ok=True)
+    main(opts)
