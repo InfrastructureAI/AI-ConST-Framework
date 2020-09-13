@@ -32,4 +32,11 @@ from datasets import DataAugmentationForMAE
 
 from torchvision.transforms import ToPILImage
 from einops import rearrange
-from timm.data.constants import IMAGENET_DEFAULT_MEAN, IMAGENET_DEFAUL
+from timm.data.constants import IMAGENET_DEFAULT_MEAN, IMAGENET_DEFAULT_STD
+
+
+def get_args():
+    parser = argparse.ArgumentParser('MAE visualization reconstruction script', add_help=False)
+    parser.add_argument('img_path', type=str, help='input image path')
+    parser.add_argument('save_path', type=str, help='save image path')
+    parser.add_argument('
