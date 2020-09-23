@@ -58,4 +58,19 @@ def get_args():
 
 
 def get_model(args):
- 
+    print(f"Creating model: {args.model}")
+    model = create_model(
+        args.model,
+        pretrained=False,
+        drop_path_rate=args.drop_path,
+        drop_block_rate=None,
+    )
+
+    return model
+
+
+def main(args):
+    print(args)
+
+    device = torch.device(args.device)
+    cudnn.benchmark 
