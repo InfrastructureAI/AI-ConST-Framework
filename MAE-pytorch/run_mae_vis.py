@@ -91,4 +91,12 @@ def main(args):
         img.convert('RGB')
         print("img path:", args.img_path)
 
-    transforms = DataAugmenta
+    transforms = DataAugmentationForMAE(args)
+    img, bool_masked_pos = transforms(img)
+    bool_masked_pos = torch.from_numpy(bool_masked_pos)
+
+    with torch.no_grad():
+        img = img[None, :]
+        bool_masked_pos = bool_masked_pos[None, :]
+        img = img.to(device, non_blocking=True)
+        bool_ma
