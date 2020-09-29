@@ -82,4 +82,13 @@ def main(args):
     args.patch_size = patch_size
 
     model.to(device)
-    checkpoint = torch.lo
+    checkpoint = torch.load(args.model_path, map_location='cpu')
+    model.load_state_dict(checkpoint['model'])
+    model.eval()
+
+    with open(args.img_path, 'rb') as f:
+        img = Image.open(f)
+        img.convert('RGB')
+        print("img path:", args.img_path)
+
+    transforms = DataAugmenta
