@@ -110,4 +110,10 @@ def main(args):
 
         #save original img
         mean = torch.as_tensor(IMAGENET_DEFAULT_MEAN).to(device)[None, :, None, None]
-        std = torch.as_tensor(IMAGENET_DEFAULT_STD).to(
+        std = torch.as_tensor(IMAGENET_DEFAULT_STD).to(device)[None, :, None, None]
+        ori_img = img * std + mean  # in [0, 1]
+        img = ToPILImage()(ori_img[0, :])
+        img.save(f"{args.save_path}/ori_img.jpg")
+
+        img_squeeze = rearrange(ori_img, 'b c (h p1) (w p2) -> b (h w) (p1 p2) c', p1=patch_size[0], p2=patch_size[0])
+        img_norm = 
