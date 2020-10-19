@@ -99,4 +99,9 @@ def main(args):
         img = img[None, :]
         bool_masked_pos = bool_masked_pos[None, :]
         img = img.to(device, non_blocking=True)
-        bool_ma
+        bool_masked_pos = bool_masked_pos.to(device, non_blocking=True).flatten(1).to(torch.bool)
+        outputs = model(img, bool_masked_pos)
+        #print('outputs shape', outputs.shape)
+        
+        #features = model.encoder.forward(img, bool_masked_pos)
+        #print('features sha
