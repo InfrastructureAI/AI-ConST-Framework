@@ -104,4 +104,10 @@ def main(args):
         #print('outputs shape', outputs.shape)
         
         #features = model.encoder.forward(img, bool_masked_pos)
-        #print('features sha
+        #print('features shape', features.shape)
+        #features_pool = features.mean(dim = 1)
+        #print('shape after pooling', features_pool.shape)
+
+        #save original img
+        mean = torch.as_tensor(IMAGENET_DEFAULT_MEAN).to(device)[None, :, None, None]
+        std = torch.as_tensor(IMAGENET_DEFAULT_STD).to(
