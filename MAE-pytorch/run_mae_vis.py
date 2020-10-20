@@ -116,4 +116,10 @@ def main(args):
         img.save(f"{args.save_path}/ori_img.jpg")
 
         img_squeeze = rearrange(ori_img, 'b c (h p1) (w p2) -> b (h w) (p1 p2) c', p1=patch_size[0], p2=patch_size[0])
-        img_norm = 
+        img_norm = (img_squeeze - img_squeeze.mean(dim=-2, keepdim=True)) / (img_squeeze.var(dim=-2, unbiased=True, keepdim=True).sqrt() + 1e-6)
+        img_patch = rearrange(img_norm, 'b n p c -> b n (p c)')
+        img_patch[bool_masked_pos] = outputs
+
+        #make mask
+        mask = torch.ones_like(img_patch)
+ 
