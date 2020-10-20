@@ -122,4 +122,9 @@ def main(args):
 
         #make mask
         mask = torch.ones_like(img_patch)
- 
+        mask[bool_masked_pos] = 0
+        mask = rearrange(mask, 'b n (p c) -> b n p c', c=3)
+        mask = rearrange(mask, 'b (h w) (p1 p2) c -> b c (h p1) (w p2)', p1=patch_size[0], p2=patch_size[1], h=14, w=14)
+
+        #save reconstruction img
+        rec_img = rearra
