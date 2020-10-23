@@ -136,4 +136,9 @@ def main(args):
 
         #save random mask img
         img_mask = rec_img * mask
-    
+        img = ToPILImage()(img_mask[0, :])
+        img.save(f"{args.save_path}/mask_img.jpg")
+
+if __name__ == '__main__':
+    opts = get_args()
+    main(opts)
