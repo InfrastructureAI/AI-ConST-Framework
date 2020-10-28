@@ -128,3 +128,53 @@ class RandomResizedCropAndInterpolationWithTwoPic:
             if w <= img.size[0] and h <= img.size[1]:
                 i = random.randint(0, img.size[1] - h)
                 j = random.randint(0, img.size[0] - w)
+                return i, j, h, w
+
+        # Fallback to central crop
+        in_ratio = img.size[0] / img.size[1]
+        if in_ratio < min(ratio):
+            w = img.size[0]
+            h = int(round(w / min(ratio)))
+        elif in_ratio > max(ratio):
+            h = img.size[1]
+            w = int(round(h * max(ratio)))
+        else:  # whole image
+            w = img.size[0]
+            h = img.size[1]
+        i = (img.size[1] - h) // 2
+        j = (img.size[0] - w) // 2
+        return i, j, h, w
+
+    def __call__(self, img):
+        """
+        Args:
+            img (PIL Image): Image to be cropped and resized.
+
+        Returns:
+            PIL Image: Randomly cropped and resized image.
+        """
+        i, j, h, w = self.get_params(img, self.scale, self.ratio)
+        if isinstance(self.interpolation, (tuple, list)):
+            interpolation = random.choice(self.interpolation)
+        else:
+            interpolation = self.interpolation
+        if self.second_size is None:
+            return F.resized_crop(img, i, j, h, w, self.size, interpolation)
+        else:
+            return F.resized_crop(img, i, j, h, w, self.size, interpolation), \
+                   F.resized_crop(img, i, j, h, w, self.second_size, self.second_interpolation)
+
+    def __repr__(self):
+        if isinstance(self.interpolation, (tuple, list)):
+            interpolate_str = ' '.join([_pil_interpolation_to_str[x] for x in self.interpolation])
+        else:
+            interpolate_str = _pil_interpolation_to_str[self.interpolation]
+        format_string = self.__class__.__name__ + '(size={0}'.format(self.size)
+        format_string += ', scale={0}'.format(tuple(round(s, 4) for s in self.scale))
+        format_string += ', ratio={0}'.format(tuple(round(r, 4) for r in self.ratio))
+        format_string += ', interpolation={0}'.format(interpolate_str)
+        if self.second_size is not None:
+            format_string += ', second_size={0}'.format(self.second_size)
+            format_string += ', second_interpolation={0}'.format(_pil_interpolation_to_str[self.second_interpolation])
+        format_string += ')'
+        return format_string
