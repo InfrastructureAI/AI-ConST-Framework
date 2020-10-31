@@ -3,4 +3,8 @@ We are actively updating this repository! More features/examples/experiments com
 
 ## Overview
 
-![Framework overvi
+![Framework overview](imgs/conST-workflow.png)
+Framework of conST. conST models the ST data as a graph by treating gene expression and
+morphology as node attributes and constructing edges by spatial coordinates. The training is divided into
+two stages: pretraining and major training stage. Pretraining stage initializes the weights of the encoder E
+by r
