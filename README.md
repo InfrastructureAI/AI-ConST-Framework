@@ -15,4 +15,23 @@ concerned tumour microenvironment and cell-to-cell interaction. GNNExplainer hel
 vincing predictions with interpretability.
 
 ## Dependencies
-- Python=3.
+- Python=3.7.11
+- torch=1.8.0
+- torchvision=0.9.2
+- torch-geometric=2.0.1
+- torch-scatter=2.0.8
+- torch-sparse=0.6.12
+- scikit-learn=0.24.2
+- umap-learn=0.5.1
+- scanpy=1.8.1
+- seaborn=0.11.2
+- scipy=1.7.1
+- networkx=2.6.3
+- pandas=1.3.3
+- anndata=0.7.6
+- timm=0.4.12
+- leidenalg=0.8.7
+
+
+## Usage
+Run `co
