@@ -34,4 +34,7 @@ vincing predictions with interpretability.
 
 
 ## Usage
-Run `co
+Run `conST_cluster.ipynb` for a clustering demo of slice 151673 of [spatialLIBD](http://spatial.libd.org/) dataset.
+You can change the argparser in the notebook to explore different modes. We also release the trained weights `conST_151673.pth`.
+
+Demo uses [spatialLIBD
