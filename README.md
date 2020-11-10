@@ -44,4 +44,7 @@ Instructions for using MAE to extract morphology features can be found [here](MA
 
 <!---
 ### Note
-Due to the CUDA non-deterministic characteristic of the sparse tensor operations in [Pytorch Geometrics](https://pytorch.org/docs/stable/generated/torch.use_deterministic_algorithm
+Due to the CUDA non-deterministic characteristic of the sparse tensor operations in [Pytorch Geometrics](https://pytorch.org/docs/stable/generated/torch.use_deterministic_algorithms.html), performance may vary with different runs or in different hardware devices. 
+To achieve the best performance, you may want to run code for multiple times or slightly adjust the parameters.
+To ensure the reproducibility, we will release the trained weights that we use in the paper. 
+Also, we plan to upgrade th
