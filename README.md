@@ -38,4 +38,10 @@ Run `conST_cluster.ipynb` for a clustering demo of slice 151673 of [spatialLIBD]
 You can change the argparser in the notebook to explore different modes. We also release the trained weights `conST_151673.pth`.
 
 Demo uses [spatialLIBD](http://spatial.libd.org/) dataset. We have organized the file structure and put the data in [Google Drive](https://drive.google.com/file/d/1a3dFS0V7Y6QNA5wVxEcqau9CtntAjZQc/view?usp=sharing). Please download and put it into `data` folder.
-If you want to experiment with other data, you can arrange the file structure the 
+If you want to experiment with other data, you can arrange the file structure the same as it.
+
+Instructions for using MAE to extract morphology features can be found [here](MAE-pytorch/README.md).
+
+<!---
+### Note
+Due to the CUDA non-deterministic characteristic of the sparse tensor operations in [Pytorch Geometrics](https://pytorch.org/docs/stable/generated/torch.use_deterministic_algorithm
