@@ -60,4 +60,11 @@ If you find this code useful, please consider citing
 	year = {2022},
 	doi = {10.1101/2022.01.14.476408},
 	publisher = {Cold Spring Harbor Laboratory},
-	URL = {https://www.biorxiv.org/content/early/2022/01/17/2022.01.14.476
+	URL = {https://www.biorxiv.org/content/early/2022/01/17/2022.01.14.476408},
+	journal = {bioRxiv}
+}
+```
+
+
+## Acknowledgement
+The code is partly adapted from [SEDR](https://github.com/JinmiaoChenLab/SEDR), [GIC](https://github.com/cmavro/Graph-InfoClust-GIC), [SpaGCN](https://github.com/jianhuupenn/SpaGCN).
