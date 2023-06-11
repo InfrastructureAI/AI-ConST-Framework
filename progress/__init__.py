@@ -1,4 +1,8 @@
 # Copyright (c) 2012 Giorgos Verigakis <verigak@gmail.com>
 #
 # Permission to use, copy, modify, and distribute this software for any
-# p
+# purpose with or without fee is hereby granted, provided that the above
+# copyright notice and this permission notice appear in all copies.
+#
+# THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+# WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRAN
