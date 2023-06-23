@@ -23,4 +23,18 @@ from time import time
 
 __version__ = '1.4'
 
-HIDE_CURSOR = '\x1b[?25
+HIDE_CURSOR = '\x1b[?25l'
+SHOW_CURSOR = '\x1b[?25h'
+
+
+class Infinite(object):
+    file = stderr
+    sma_window = 10         # Simple Moving Average window
+    check_tty = True
+    hide_cursor = True
+
+    def __init__(self, message='', **kwargs):
+        self.index = 0
+        self.start_ts = time()
+        self.avg = 0
+        self._ts = 
