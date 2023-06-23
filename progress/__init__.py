@@ -10,4 +10,17 @@
 # ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
 # WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
-# OR
+# OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+from __future__ import division, print_function
+
+from collections import deque
+from datetime import timedelta
+from math import ceil
+from sys import stderr
+from time import time
+
+
+__version__ = '1.4'
+
+HIDE_CURSOR = '\x1b[?25
