@@ -37,4 +37,14 @@ class Infinite(object):
         self.index = 0
         self.start_ts = time()
         self.avg = 0
-        self._ts = 
+        self._ts = self.start_ts
+        self._xput = deque(maxlen=self.sma_window)
+        for key, val in kwargs.items():
+            setattr(self, key, val)
+
+        self._width = 0
+        self.message = message
+
+        if self.file and self.is_tty():
+            if self.hide_cursor:
+                print(HIDE_CURSOR, end='', f
