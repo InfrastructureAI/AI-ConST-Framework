@@ -47,4 +47,15 @@ class Infinite(object):
 
         if self.file and self.is_tty():
             if self.hide_cursor:
-                print(HIDE_CURSOR, end='', f
+                print(HIDE_CURSOR, end='', file=self.file)
+            print(self.message, end='', file=self.file)
+            self.file.flush()
+
+    def __getitem__(self, key):
+        if key.startswith('_'):
+            return None
+        return getattr(self, key, None)
+
+    @property
+    def elapsed(self):
+        return
