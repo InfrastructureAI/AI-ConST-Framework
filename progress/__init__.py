@@ -58,4 +58,18 @@ class Infinite(object):
 
     @property
     def elapsed(self):
-        return
+        return int(time() - self.start_ts)
+
+    @property
+    def elapsed_td(self):
+        return timedelta(seconds=self.elapsed)
+
+    def update_avg(self, n, dt):
+        if n > 0:
+            self._xput.append(dt / n)
+            self.avg = sum(self._xput) / len(self._xput)
+
+    def update(self):
+        pass
+
+    def start(s
