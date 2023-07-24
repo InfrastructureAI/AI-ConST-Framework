@@ -72,4 +72,14 @@ class Infinite(object):
     def update(self):
         pass
 
-    def start(s
+    def start(self):
+        pass
+
+    def clearln(self):
+        if self.file and self.is_tty():
+            print('\r\x1b[K', end='', file=self.file)
+
+    def write(self, s):
+        if self.file and self.is_tty():
+            line = self.message + s.ljust(self._width)
+            print('\r' + line, en
