@@ -82,4 +82,15 @@ class Infinite(object):
     def write(self, s):
         if self.file and self.is_tty():
             line = self.message + s.ljust(self._width)
-            print('\r' + line, en
+            print('\r' + line, end='', file=self.file)
+            self._width = max(self._width, len(s))
+            self.file.flush()
+
+    def writeln(self, line):
+        if self.file and self.is_tty():
+            self.clearln()
+            print(line, end='', file=self.file)
+            self.file.flush()
+
+    def finish(self):
+        if sel
