@@ -93,4 +93,13 @@ class Infinite(object):
             self.file.flush()
 
     def finish(self):
-        if sel
+        if self.file and self.is_tty():
+            print(file=self.file)
+            if self.hide_cursor:
+                print(SHOW_CURSOR, end='', file=self.file)
+
+    def is_tty(self):
+        return self.file.isatty() if self.check_tty else True
+
+    def next(self, n=1):
+        now 
