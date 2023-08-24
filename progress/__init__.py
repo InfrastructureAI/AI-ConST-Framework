@@ -102,4 +102,18 @@ class Infinite(object):
         return self.file.isatty() if self.check_tty else True
 
     def next(self, n=1):
-        now 
+        now = time()
+        dt = now - self._ts
+        self.update_avg(n, dt)
+        self._ts = now
+        self.index = self.index + n
+        self.update()
+
+    def iter(self, it):
+        with self:
+            for x in it:
+                yield x
+                self.next()
+
+    def __enter__(self):
+        self
