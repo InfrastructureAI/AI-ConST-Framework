@@ -126,4 +126,20 @@ class Infinite(object):
 class Progress(Infinite):
     def __init__(self, *args, **kwargs):
         super(Progress, self).__init__(*args, **kwargs)
-        self.max = kwargs.get('max', 100
+        self.max = kwargs.get('max', 100)
+
+    @property
+    def eta(self):
+        return int(ceil(self.avg * self.remaining))
+
+    @property
+    def eta_td(self):
+        return timedelta(seconds=self.eta)
+
+    @property
+    def percent(self):
+        return self.progress * 100
+
+    @property
+    def progress(self):
+        return min(1, self.index / self.
