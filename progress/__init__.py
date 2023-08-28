@@ -116,4 +116,14 @@ class Infinite(object):
                 self.next()
 
     def __enter__(self):
-        self
+        self.start()
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.finish()
+
+
+class Progress(Infinite):
+    def __init__(self, *args, **kwargs):
+        super(Progress, self).__init__(*args, **kwargs)
+        self.max = kwargs.get('max', 100
