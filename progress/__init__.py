@@ -142,4 +142,20 @@ class Progress(Infinite):
 
     @property
     def progress(self):
-        return min(1, self.index / self.
+        return min(1, self.index / self.max)
+
+    @property
+    def remaining(self):
+        return max(self.max - self.index, 0)
+
+    def start(self):
+        self.update()
+
+    def goto(self, index):
+        incr = index - self.index
+        self.next(incr)
+
+    def iter(self, it):
+        try:
+            self.max = len(it)
+      
