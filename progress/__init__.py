@@ -158,4 +158,10 @@ class Progress(Infinite):
     def iter(self, it):
         try:
             self.max = len(it)
-      
+        except TypeError:
+            pass
+
+        with self:
+            for x in it:
+                yield x
+                self.next()
