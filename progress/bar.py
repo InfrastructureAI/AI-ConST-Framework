@@ -30,4 +30,11 @@ class Bar(Progress):
     fill = '#'
 
     def update(self):
-        
+        filled_length = int(self.width * self.progress)
+        empty_length = self.width - filled_length
+
+        message = self.message % self
+        bar = self.fill * filled_length
+        empty = self.empty_fill * empty_length
+        suffix = self.suffix % self
+        line = ''.join([message, self.bar_prefix, bar, empty, se
