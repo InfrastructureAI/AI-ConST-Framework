@@ -37,4 +37,22 @@ class Bar(Progress):
         bar = self.fill * filled_length
         empty = self.empty_fill * empty_length
         suffix = self.suffix % self
-        line = ''.join([message, self.bar_prefix, bar, empty, se
+        line = ''.join([message, self.bar_prefix, bar, empty, self.bar_suffix,
+                        suffix])
+        self.writeln(line)
+
+
+class ChargingBar(Bar):
+    suffix = '%(percent)d%%'
+    bar_prefix = ' '
+    bar_suffix = ' '
+    empty_fill = '∙'
+    fill = '█'
+
+
+class FillingSquaresBar(ChargingBar):
+    empty_fill = '▢'
+    fill = '▣'
+
+
+cl
