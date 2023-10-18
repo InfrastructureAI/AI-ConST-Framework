@@ -55,4 +55,17 @@ class FillingSquaresBar(ChargingBar):
     fill = '▣'
 
 
-cl
+class FillingCirclesBar(ChargingBar):
+    empty_fill = '◯'
+    fill = '◉'
+
+
+class IncrementalBar(Bar):
+    if sys.platform.startswith('win'):
+        phases = (u' ', u'▌', u'█')
+    else:
+        phases = (' ', '▏', '▎', '▍', '▌', '▋', '▊', '▉', '█')
+
+    def update(self):
+        nphases = len(self.phases)
+      
