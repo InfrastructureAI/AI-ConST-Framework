@@ -79,4 +79,13 @@ class IncrementalBar(Bar):
         empty = self.empty_fill * max(0, nempty - len(current))
         suffix = self.suffix % self
         line = ''.join([message, self.bar_prefix, bar, current, empty,
-                        s
+                        self.bar_suffix, suffix])
+        self.writeln(line)
+
+
+class PixelBar(IncrementalBar):
+    phases = ('⡀', '⡄', '⡆', '⡇', '⣇', '⣧', '⣷', '⣿')
+
+
+class ShadyBar(IncrementalBar):
+    phases = (' ', '░', '▒', '▓', '█')
