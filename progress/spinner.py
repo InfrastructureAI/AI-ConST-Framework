@@ -40,4 +40,4 @@ class LineSpinner(Spinner):
 
 
 class PixelSpinner(Spinner):
-    phases = ['⣾', '⣷', '⣯',
+    phases = ['⣾', '⣷', '⣯', '⣟', '⡿', '⢿', '⣻', '⣽']
