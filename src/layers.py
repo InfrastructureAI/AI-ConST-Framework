@@ -26,4 +26,12 @@ def cluster(data, k, temp, num_iter, init, cluster_temp):
 
         # cluster responsibilities via softmax
         r = F.softmax(cluster_temp*dist, dim=1)
-        #
+        # total responsibility of each cluster
+        cluster_r = r.sum(dim=0)
+        # mean of points in each cluster weighted by responsibility
+        cluster_mean = r.t() @ data
+        # update cluster means
+        new_mu = torch.diag(1/cluster_r) @ cluster_mean
+        mu = new_mu
+    
+    r = F.softmax(clus
