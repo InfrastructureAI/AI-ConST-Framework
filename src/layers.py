@@ -34,4 +34,12 @@ def cluster(data, k, temp, num_iter, init, cluster_temp):
         new_mu = torch.diag(1/cluster_r) @ cluster_mean
         mu = new_mu
     
-    r = F.softmax(clus
+    r = F.softmax(cluster_temp*dist, dim=1)
+    return mu, r
+
+
+class Clusterator(nn.Module):
+    '''
+    The ClusterNet architecture. The first step is a 2-layer GCN to generate embeddings.
+    The output is the cluster means mu and soft assignments r, along with the 
+    embeddings and the the node simil
