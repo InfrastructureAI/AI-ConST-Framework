@@ -42,4 +42,10 @@ class Clusterator(nn.Module):
     '''
     The ClusterNet architecture. The first step is a 2-layer GCN to generate embeddings.
     The output is the cluster means mu and soft assignments r, along with the 
-    embeddings and the the node simil
+    embeddings and the the node similarities (just output for debugging purposes).
+    
+    The forward pass inputs are x, a feature matrix for the nodes, and adj, a sparse
+    adjacency matrix. The optional parameter num_iter determines how many steps to 
+    run the k-means updates for.
+    '''
+    def __init__(self, nout, 
