@@ -48,4 +48,13 @@ class Clusterator(nn.Module):
     adjacency matrix. The optional parameter num_iter determines how many steps to 
     run the k-means updates for.
     '''
-    def __init__(self, nout, 
+    def __init__(self, nout, K):
+        super(Clusterator, self).__init__()
+        
+        self.sigmoid = nn.Sigmoid()
+        self.K = K
+        self.nout = nout
+        self.init =  torch.rand(self.K, nout)
+        
+    def forward(self, embeds, cluster_temp, num_iter=10):
+        mu_init, _ = cluster(
