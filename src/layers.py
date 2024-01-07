@@ -57,4 +57,9 @@ class Clusterator(nn.Module):
         self.init =  torch.rand(self.K, nout)
         
     def forward(self, embeds, cluster_temp, num_iter=10):
-        mu_init, _ = cluster(
+        mu_init, _ = cluster(embeds, self.K, 1, num_iter, cluster_temp = torch.tensor(cluster_temp), init = self.init)
+        #self.init = mu_init.clone().detach()
+        mu, r = cluster(embeds, self.K, 1, 1, cluster_temp = torch.tensor(cluster_temp), init = mu_init.clone().detach())
+        
+        return mu, r
+    
