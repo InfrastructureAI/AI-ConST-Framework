@@ -63,3 +63,15 @@ class Clusterator(nn.Module):
         
         return mu, r
     
+
+class Discriminator(nn.Module):
+    def __init__(self, n_h):
+        super(Discriminator, self).__init__()
+        self.f_k = nn.Bilinear(n_h, n_h, 1)
+
+        for m in self.modules():
+            self.weights_init(m)
+
+    def weights_init(self, m):
+        if isinstance(m, nn.Bilinear):
+ 
