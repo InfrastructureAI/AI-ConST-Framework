@@ -84,4 +84,15 @@ class Discriminator(nn.Module):
         sc_1 = torch.squeeze(self.f_k(h_pl, c_x), 1)
         sc_2 = torch.squeeze(self.f_k(h_mi, c_x), 1)
 
-        i
+        if s_bias1 is not None:
+            sc_1 += s_bias1
+        if s_bias2 is not None:
+            sc_2 += s_bias2
+        
+        logits = torch.cat((sc_1, sc_2))
+        return logits
+
+
+class Discriminator_cluster(nn.Module):
+    def __init__(self, n_in, n_h , n_nb , num_clusters ):
+        super(Discriminator_cluster, self).
