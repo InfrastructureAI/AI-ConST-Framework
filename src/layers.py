@@ -95,4 +95,14 @@ class Discriminator(nn.Module):
 
 class Discriminator_cluster(nn.Module):
     def __init__(self, n_in, n_h , n_nb , num_clusters ):
-        super(Discriminator_cluster, self).
+        super(Discriminator_cluster, self).__init__()
+        
+        self.n_nb = n_nb
+        self.n_h = n_h
+        self.num_clusters=num_clusters
+
+    def forward(self, c, c2, h_0, h_pl, h_mi, S, s_bias1=None, s_bias2=None):
+        
+        c_x = c.expand_as(h_0)
+        
+        sc_1 =torch.bmm(h_pl.view(self.n_nb, 1, self.n_h
