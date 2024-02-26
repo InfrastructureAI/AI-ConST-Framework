@@ -105,4 +105,14 @@ class Discriminator_cluster(nn.Module):
         
         c_x = c.expand_as(h_0)
         
-        sc_1 =torch.bmm(h_pl.view(self.n_nb, 1, self.n_h
+        sc_1 =torch.bmm(h_pl.view(self.n_nb, 1, self.n_h), c_x.view(self.n_nb, self.n_h, 1))
+        sc_2 = torch.bmm(h_mi.view(self.n_nb, 1, self.n_h), c_x.view(self.n_nb, self.n_h, 1))
+
+        if s_bias1 is not None:
+            sc_1 += s_bias1
+        if s_bias2 is not None:
+            sc_2 += s_bias2
+
+        logits = torch.cat((sc_1,sc_2),0).view(1,-1)
+
+        return
