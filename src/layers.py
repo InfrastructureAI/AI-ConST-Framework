@@ -115,4 +115,15 @@ class Discriminator_cluster(nn.Module):
 
         logits = torch.cat((sc_1,sc_2),0).view(1,-1)
 
-        return
+        return logits
+
+    
+# Applies an average on seq, of shape (batch, nodes, features)
+# While taking into account the masking of msk
+class AvgReadout(nn.Module):
+    def __init__(self):
+        super(AvgReadout, self).__init__()
+
+    def forward(self, seq, msk):
+        if msk is None:
+ 
