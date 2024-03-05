@@ -126,4 +126,13 @@ class AvgReadout(nn.Module):
 
     def forward(self, seq, msk):
         if msk is None:
- 
+            return torch.mean(seq, 1)
+        else:
+            msk = torch.unsqueeze(msk, -1)
+            return torch.sum(seq * msk, 1) / torch.sum(msk)
+
+
+def full_block(in_features, out_features, p_drop):
+    return nn.Sequential(
+        nn.Linear(in_features, out_features),
+        nn.Batch
