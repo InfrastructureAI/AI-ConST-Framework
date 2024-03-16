@@ -135,4 +135,16 @@ class AvgReadout(nn.Module):
 def full_block(in_features, out_features, p_drop):
     return nn.Sequential(
         nn.Linear(in_features, out_features),
-        nn.Batch
+        nn.BatchNorm1d(out_features, momentum=0.01, eps=0.001),
+        nn.ELU(),
+        nn.Dropout(p=p_drop),
+    )
+
+
+class GraphConvolution(Module):
+    """
+    Simple GCN layer, similar to https://arxiv.org/abs/1609.02907
+    """
+
+    def __init__(self, in_features, out_features, dropout=0., act=F.relu):
+        super(GraphConvolution,
