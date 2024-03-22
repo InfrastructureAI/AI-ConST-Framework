@@ -147,4 +147,13 @@ class GraphConvolution(Module):
     """
 
     def __init__(self, in_features, out_features, dropout=0., act=F.relu):
-        super(GraphConvolution,
+        super(GraphConvolution, self).__init__()
+        self.in_features = in_features
+        self.out_features = out_features
+        self.dropout = dropout
+        self.act = act
+        self.weight = Parameter(torch.FloatTensor(in_features, out_features))
+        self.reset_parameters()
+
+    def reset_parameters(self):
+ 
