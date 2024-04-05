@@ -175,4 +175,6 @@ class InnerProductDecoder(nn.Module):
         self.act = act
 
     def forward(self, z):
-        z = F.dropout(z, self.dropout, t
+        z = F.dropout(z, self.dropout, training=self.training)
+        adj = self.act(torch.mm(z, z.t()))
+        return adj
