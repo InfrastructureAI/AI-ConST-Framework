@@ -11,4 +11,9 @@ def Moran_I(genes_exp, XYdistances, XYindices):
     for i in range(0,genes_exp.shape[0]):
         W[i,i]=0
     
-    I = pd.Series(index=genes_exp.columns, d
+    I = pd.Series(index=genes_exp.columns, dtype="float64")
+    for k in genes_exp.columns:
+        X_minus_mean = np.array(genes_exp[k] - np.mean(genes_exp[k]))
+        X_minus_mean = np.reshape(X_minus_mean,(len(X_minus_mean),1))
+        Nom = np.sum(np.multiply(W,np.matmul(X_minus_mean,X_minus_mean.T)))
+        Den = np.sum(np.multiply(X_minus
