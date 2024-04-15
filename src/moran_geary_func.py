@@ -33,4 +33,8 @@ def Geary_C(genes_exp, XYdistances, XYindices):
         X=np.array(genes_exp[k])
         X_minus_mean = X - np.mean(X)
         X_minus_mean = np.reshape(X_minus_mean,(len(X_minus_mean),1))
-        Xij=np.array([X
+        Xij=np.array([X,]*X.shape[0]).transpose()-np.array([X,]*X.shape[0])
+        Nom = np.sum(np.multiply(W,np.multiply(Xij,Xij)))
+        Den = np.sum(np.multiply(X_minus_mean,X_minus_mean))
+        C[k] = (len(genes_exp[k])/(2*np.sum(W)))*(Nom/Den)
+    return C
