@@ -192,3 +192,86 @@ class conST_training:
                 _, tmp_q, _, _ = self.process()
                 tmp_p = target_distribution(torch.Tensor(tmp_q))
                 y_pred = tmp_p.cpu().numpy().argmax(1)
+                delta_label = np.sum(y_pred != y_pred_last).astype(np.float32) / y_pred.shape[0]
+                y_pred_last = np.copy(y_pred)
+                self.model.train()
+                if epoch_id > 0 and delta_label < self.params.dec_tol:
+                    print('delta_label {:.4}'.format(delta_label), '< tol', self.params.dec_tol)
+                    print('Reached tolerance threshold. Stopping training.')
+                    break
+
+            # training model
+            torch.set_grad_enabled(True)
+            self.optimizer.zero_grad()
+
+            if self.use_img is False:
+                adj1, adj2, x_1, x_2 = self.augment_edge_node(self.params.edge_drop_p1,
+                                                                            self.params.edge_drop_p2,
+                                                                            self.params.node_drop_p1,
+                                                                            self.params.node_drop_p2)
+                # local-to-local
+
+                z1, mu1, logvar1, de_feat1, q1, feat_x1, gnn_z1 = self.model(x_1, adj1)
+                z2, mu2, logvar2, de_feat2, q2, feat_x2, gnn_z2 = self.model(x_2, adj2)
+                feat_x1 = self.model.projection(feat_x1)
+                feat_x2 = self.model.projection(feat_x2)
+                loss_cont = self.model.cont_l2l(feat_x1, feat_x2)
+
+                latent_z, mu, logvar, de_feat, out_q, feat_x,  _ = self.model(self.node_X, self.adj_norm)
+
+                shuf_fts, adj_changed = self.augment_l2cg(self.node_X, self.adj_norm)
+
+                latent_z3, mu3, logvar3, de_feat3, out_q3, feat_x3, gnn_z3 = self.model(shuf_fts, adj_changed)
+
+                ret_l2c = self.model.l2c_forward(feat_x, feat_x3, self.beta)
+                ret_l2g = self.model.l2g_forward(feat_x, feat_x3)
+
+                lbl_1 = torch.ones(1, ret_l2c.shape[1] // 2)
+                lbl_2 = torch.zeros(1, ret_l2c.shape[1] // 2)
+                lbl = torch.cat((lbl_1, lbl_2), 1).to(self.params.device)
+
+                cont_l2c = self.model.cont_bxent(lbl, ret_l2c)
+                cont_l2g = self.model.cont_bxent(lbl, ret_l2g)
+
+                loss_kl = F.kl_div(out_q.log(), torch.tensor(tmp_p).to(self.device)).to(self.device)
+                loss = self.params.dec_kl_w * loss_kl + self.params.cont_l2l * loss_cont + \
+                       self.params.cont_l2g * cont_l2g + self.params.cont_l2c + cont_l2c
+            else:
+                adj1, adj2, x_1, x_2, img_1, img_2 = self.augment_edge_node(self.params.edge_drop_p1,
+                                                              self.params.edge_drop_p2,
+                                                              self.params.node_drop_p1,
+                                                              self.params.node_drop_p2)
+                z1, mu1, logvar1, de_feat1, de_feat_img1, q1, feat_x1, gnn_z1 = self.model(x_1, adj1, img_1)
+                z2, mu2, logvar2, de_feat2, de_feat_img2, q2, feat_x2, gnn_z2 = self.model(x_2, adj2, img_2)
+                feat_x1 = self.model.projection(z1)
+                feat_x2 = self.model.projection(z2)
+                loss_cont = self.model.cont_l2l(feat_x1, feat_x2)
+
+                latent_z, mu, logvar, de_feat, de_feat_img, out_q, feat_x, _ = self.model(self.node_X,
+                                                                                          self.adj_norm, self.img)
+
+                shuf_fts, adj_changed = self.augment_l2cg(self.node_X, self.adj_norm)
+
+                latent_z3, mu3, logvar3, de_feat3, de_feat_img, out_q3, feat_x3, gnn_z3 = self.model(shuf_fts,
+                                                                                                     self.adj_norm, self.img)
+                ret_l2c = self.model.l2c_forward(latent_z, latent_z3, self.beta)
+                ret_l2g = self.model.l2g_forward(latent_z, latent_z3)
+
+                lbl_1 = torch.ones(1, ret_l2c.shape[1] // 2)
+                lbl_2 = torch.zeros(1, ret_l2c.shape[1] // 2)
+                lbl = torch.cat((lbl_1, lbl_2), 1).to(self.params.device)
+
+                cont_l2c = self.model.cont_bxent(lbl, ret_l2c)
+                cont_l2g = self.model.cont_bxent(lbl, ret_l2g)
+
+                loss_kl = F.kl_div(out_q.log(), torch.tensor(tmp_p).to(self.device)).to(self.device)
+                loss = self.params.dec_kl_w * loss_kl + self.params.cont_l2l * loss_cont + \
+                       self.params.cont_l2g * cont_l2g + self.params.cont_l2c + cont_l2c
+
+            loss.backward()
+            self.optimizer.step()
+
+            bar_str = '{} / {} | Loss: {loss:.4f}'
+            bar.suffix = bar_str.format(epoch_id + 1, self.epochs, loss=loss.item())
+            bar.next()
+        bar.finish()
