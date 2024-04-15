@@ -25,4 +25,12 @@ def Geary_C(genes_exp, XYdistances, XYindices):
     W = np.zeros((genes_exp.shape[0],genes_exp.shape[0]))
     for i in range(0,genes_exp.shape[0]):
         W[i,XYindices[i,:]]=1
-    for i in range(0,genes_e
+    for i in range(0,genes_exp.shape[0]):
+        W[i,i]=0
+    
+    C = pd.Series(index=genes_exp.columns, dtype="float64")
+    for k in genes_exp.columns:
+        X=np.array(genes_exp[k])
+        X_minus_mean = X - np.mean(X)
+        X_minus_mean = np.reshape(X_minus_mean,(len(X_minus_mean),1))
+        Xij=np.array([X
