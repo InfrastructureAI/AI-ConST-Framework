@@ -21,4 +21,15 @@ def plot_clustering(adata, colors, savepath = None):
 
     ax1.set_aspect('equal', 'box')
     ax1.axis('off')
-    ax1.ax
+    ax1.axes.invert_yaxis()
+    if savepath is not None:
+        fig.savefig(savepath, bbox_inches='tight')
+
+
+def res_search_fixed_clus(adata, fixed_clus_count, increment=0.02):
+    '''
+        arg1(adata)[AnnData matrix]
+        arg2(fixed_clus_count)[int]
+        
+        return:
+            resolution[i
