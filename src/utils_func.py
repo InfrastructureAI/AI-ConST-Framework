@@ -39,4 +39,16 @@ def res_search_fixed_clus(adata, fixed_clus_count, increment=0.02):
         count_unique_leiden = len(pd.DataFrame(adata.obs['leiden']).leiden.unique())
         if count_unique_leiden == fixed_clus_count:
             break
-   
+    return res
+
+
+def mk_dir(input_path):
+    if not os.path.exists(input_path):
+        os.makedirs(input_path)
+    return input_path
+
+
+def adata_preprocess(i_adata, min_cells=3, pca_n_comps=300):
+    print('===== Preprocessing Data ')
+    sc.pp.filter_genes(i_adata, min_cells=min_cells)
+    ada
