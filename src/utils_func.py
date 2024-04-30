@@ -32,4 +32,11 @@ def res_search_fixed_clus(adata, fixed_clus_count, increment=0.02):
         arg2(fixed_clus_count)[int]
         
         return:
-            resolution[i
+            resolution[int]
+    '''
+    for res in sorted(list(np.arange(0.01, 2.5, increment)), reverse=True):
+        sc.tl.leiden(adata, random_state=0, resolution=res)
+        count_unique_leiden = len(pd.DataFrame(adata.obs['leiden']).leiden.unique())
+        if count_unique_leiden == fixed_clus_count:
+            break
+   
