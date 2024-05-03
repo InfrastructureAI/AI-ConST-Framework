@@ -57,4 +57,12 @@ def adata_preprocess(i_adata, min_cells=3, pca_n_comps=300):
     return adata_X
 
 
-def load_ST_file(file_fold, count_file='filtered_feature_bc_matrix.h5', load_images=True
+def load_ST_file(file_fold, count_file='filtered_feature_bc_matrix.h5', load_images=True, file_Adj=None):
+    adata_h5 = sc.read_visium(file_fold, load_images=load_images, count_file=count_file)
+    adata_h5.var_names_make_unique()
+
+    if load_images is False:
+        if file_Adj is None:
+            file_Adj = os.path.join(file_fold, "spatial/tissue_positions_list.csv")
+
+     
