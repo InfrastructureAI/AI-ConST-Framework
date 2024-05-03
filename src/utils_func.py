@@ -51,4 +51,10 @@ def mk_dir(input_path):
 def adata_preprocess(i_adata, min_cells=3, pca_n_comps=300):
     print('===== Preprocessing Data ')
     sc.pp.filter_genes(i_adata, min_cells=min_cells)
-    ada
+    adata_X = sc.pp.normalize_total(i_adata, target_sum=1, exclude_highly_expressed=True, inplace=False)['X']
+    adata_X = sc.pp.scale(adata_X)
+    adata_X = sc.pp.pca(adata_X, n_comps=pca_n_comps)
+    return adata_X
+
+
+def load_ST_file(file_fold, count_file='filtered_feature_bc_matrix.h5', load_images=True
