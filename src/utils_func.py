@@ -98,4 +98,12 @@ def _download_visium_dataset(
     # Download spatial data
     tar_filename = f"{sample_id}_spatial.tar.gz"
     tar_pth = Path(os.path.join(sample_dir, tar_filename))
-    check_presence_download(filename=tar
+    check_presence_download(filename=tar_pth, backup_url=url_prefix + tar_filename)
+    with tarfile.open(tar_pth) as f:
+        for el in f:
+            if not (sample_dir / el.name).exists():
+                f.extract(el, sample_dir)
+
+    # Download counts
+    check_presence_download(
+        filename=sample_dir / "filtered_feature_bc
