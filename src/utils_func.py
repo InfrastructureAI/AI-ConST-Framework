@@ -74,4 +74,7 @@ def load_ST_file(file_fold, count_file='filtered_feature_bc_matrix.h5', load_ima
             'pxl_col_in_fullres',
             'pxl_row_in_fullres',
         ]
-        positions.index = positions['
+        positions.index = positions['barcode']
+        adata_h5.obs = adata_h5.obs.join(positions, how="left")
+        adata_h5.obsm['spatial'] = adata_h5.obs[['pxl_row_in_fullres', 'pxl_col_in_fullres']].to_numpy()
+        adata_h5.obs.drop(columns=['barcode', 'pxl_row_in_fullres', 'pxl_col_in_f
