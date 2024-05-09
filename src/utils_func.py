@@ -91,4 +91,11 @@ def _download_visium_dataset(
 ):
     import tarfile
 
-    url_prefix = f'https://cf.1
+    url_prefix = f'https://cf.10xgenomics.com/samples/spatial-exp/{spaceranger_version}/{sample_id}/'
+
+    sample_dir = Path(mk_dir(os.path.join(base_dir, sample_id)))
+
+    # Download spatial data
+    tar_filename = f"{sample_id}_spatial.tar.gz"
+    tar_pth = Path(os.path.join(sample_dir, tar_filename))
+    check_presence_download(filename=tar
