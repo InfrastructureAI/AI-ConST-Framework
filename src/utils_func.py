@@ -65,4 +65,13 @@ def load_ST_file(file_fold, count_file='filtered_feature_bc_matrix.h5', load_ima
         if file_Adj is None:
             file_Adj = os.path.join(file_fold, "spatial/tissue_positions_list.csv")
 
-     
+        positions = pd.read_csv(file_Adj, header=None)
+        positions.columns = [
+            'barcode',
+            'in_tissue',
+            'array_row',
+            'array_col',
+            'pxl_col_in_fullres',
+            'pxl_row_in_fullres',
+        ]
+        positions.index = positions['
