@@ -115,4 +115,9 @@ def load_visium_sge(sample_id='V1_Breast_Cancer_Block_A_Section_1', save_path='.
     if "V1_" in sample_id:
         spaceranger_version = "1.1.0"
     else:
-        spaceranger_vers
+        spaceranger_version = "1.2.0"
+    _download_visium_dataset(sample_id, spaceranger_version, base_dir=save_path)
+    adata = read_visium(os.path.join(save_path, sample_id))
+
+    print('adata: (' + str(adata.shape[0]) + ', ' + str(adata.shape[1]) + ')')
+    return adata
