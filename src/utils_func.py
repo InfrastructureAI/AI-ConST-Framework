@@ -106,4 +106,13 @@ def _download_visium_dataset(
 
     # Download counts
     check_presence_download(
-        filename=sample_dir / "filtered_feature_bc
+        filename=sample_dir / "filtered_feature_bc_matrix.h5",
+        backup_url=url_prefix + f"{sample_id}_filtered_feature_bc_matrix.h5",
+    )
+
+
+def load_visium_sge(sample_id='V1_Breast_Cancer_Block_A_Section_1', save_path='./data/'):
+    if "V1_" in sample_id:
+        spaceranger_version = "1.1.0"
+    else:
+        spaceranger_vers
