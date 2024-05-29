@@ -15,4 +15,10 @@ PATCHES_PATH='/path/to/cropped/patches.npy'
 MODEL_PATH='/path/to/pretrain/checkpoint.pth'
 
 
-python run_mae_extract_feature.py ${PA
+python run_mae_extract_feature.py ${PATCHES_PATH} ${OUTPUT_DIR} ${MODEL_PATH}
+```
+
+### Pretrained Weights
+The pretrained weights can be found using the link from the original repository [here](https://drive.google.com/drive/folders/182F5SLwJnGVngkzguTelja4PztYLTXfa?usp=sharing)
+
+This repository is maintained by InfrastructureAI.
